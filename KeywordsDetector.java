@@ -1,4 +1,31 @@
 public class KeywordsDetector {
+    public static boolean contains(String str1, String str2) {
+        int[] s1 = new int[str1.length()];
+        int[] s2 = new int[str2.length()];
+        for (int i = 0 ; i < str1.length(); i ++){
+            s1[i] = (int) str1.charAt(i);
+        }
+        for (int i = 0 ; i < str2.length(); i ++){
+            s2[i] = (int) str2.charAt(i);
+        }
+        if (str2.length() > str1.length()){
+            return false;
+        }
+        for (int i = 0 ; i <= str1.length() - str2.length() ; i++){
+            boolean same = true;
+            for (int j = 0 ; j < str2.length() ; j++){
+                if (s1[i+j] != s2[j]){
+                    same = false;
+                    break;
+                }
+            }
+            if (same){
+                return true;
+            }
+        }
+
+        return false;
+    }
     public static void main(String[] args) {
         String[] sentences = {
             "Our product will transform the market",
@@ -21,6 +48,19 @@ public class KeywordsDetector {
     // Iterates through all the sentences.
     // If a sentence contains one or more of the kewords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
-        // Replace this comment with your code
+        for (int i = 0; i < sentences.length; i++) {
+            String sentence = sentences[i];
+            String lowerSentence = sentence.toLowerCase(); 
+
+            for (int j = 0; j < keywords.length; j++) {
+                String keyword = keywords[j];
+                String lowerKeyword = keyword.toLowerCase();
+
+                if (contains(lowerSentence, lowerKeyword)) {
+                    System.out.println(sentence); 
+                    break;
+                }
+            }
+        }
     }
 }
